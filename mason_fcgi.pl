@@ -41,6 +41,7 @@ while (my ($site, $comp_base) = each %sites) {
   ### Usefull debug commands in the component namespace
   package HTML::Mason::Commands;
   use Data::Dumper;
+  use vars qw( %stash );
 }
 
 ### Preserve our stderr for logging
@@ -54,12 +55,18 @@ while (my $cgi = new CGI::Fast()) {
   my ($host) = $ENV{HTTP_HOST} =~ /^(.+?)(:\d+)?$/;
   print $error_log ">> HIT for '$host' => '$ENV{REQUEST_URI}'\n";
 
+  ### Make sure we have a clean stash when we start
+  %HTML::Mason::Commands::stash = ();
+  
   # hand off to mason
   # FIXME: need to deal with unknown sites
   eval { $handlers{$host}->handle_cgi_object($cgi) };
   if (my $raw_error = $@) {
     print $error_log $raw_error;
   }
+  
+  ### And release the stash after the request
+  %HTML::Mason::Commands::stash = ();
 }
 
 exit 0;
