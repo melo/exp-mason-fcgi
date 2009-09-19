@@ -4,6 +4,8 @@
   </head>
   <body>
     <& header.mc &>
+    <& nav.mc &>
+    <hr>
 % $m->call_next;
     <hr />
     <pre><% Dumper(\%ENV) | h %></pre>
