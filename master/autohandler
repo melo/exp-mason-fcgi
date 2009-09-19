@@ -1,7 +1,8 @@
+% $stash{title} = 'Our pretty sites';
 % my $content = $m->scall_next;
 <html>
   <head>
-    <title>Our pretty sites</title>
+    <title><% $stash{title} | h %></title>
   </head>
   <body>
     <& header.mc &>
