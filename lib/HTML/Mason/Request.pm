@@ -953,6 +953,16 @@ sub call_next {
     return $self->comp({base_comp=>$self->request_comp}, $comp, @{$self->current_args}, @extra_args);
 }
 
+sub scall_next {
+    my $self = shift;
+    my $comp = $self->fetch_next
+        or error "call_next: no next component to invoke";
+
+    my $buf;
+    $self->comp({store=>\$buf,base_comp=>$self->request_comp}, $comp, @{$self->current_args}, @_);
+    return $buf;
+}
+
 sub caller
 {
     my ($self) = @_;
