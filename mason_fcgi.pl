@@ -19,8 +19,8 @@ my $base = $ENV{BASE} || getcwd();
 my %handlers;
 
 my %sites = (
-  'cat1' => 'site1',
-  'cat2' => 'site2',
+  'www.site1.mason' => 'site1',
+  'www.site2.mason' => 'site2',
 );
 
 while (my ($site, $comp_base) = each %sites) {
