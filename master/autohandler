@@ -1,0 +1,11 @@
+<html>
+  <head>
+    <title>Our pretty sites</title>
+  </head>
+  <body>
+    <& header.mc &>
+% $m->call_next;
+    <hr />
+    <pre><% Dumper(\%ENV) | h %></pre>
+  </body>
+</html>
