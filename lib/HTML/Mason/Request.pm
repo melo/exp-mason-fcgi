@@ -248,6 +248,16 @@ sub _initialize {
 
                 last search unless $self->use_dhandlers;
 
+                # If path was not found, check for index.html-style files.
+                unless ($request_comp) {
+                    my $index_path = $path;
+                    $index_path .= '/' unless substr($index_path, -1) eq '/';
+                    foreach my $index_file ('index.html', 'index.htm') {
+                      $request_comp = $self->interp->load("$index_path$index_file");
+                      last if $request_comp;
+                    }
+                }
+
                 # If path was not found, check for dhandler.
                 unless ($request_comp) {
                     if ( $request_comp = $self->interp->find_comp_upwards($path, $self->dhandler_name) ) {
